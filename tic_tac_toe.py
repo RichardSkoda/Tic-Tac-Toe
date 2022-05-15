@@ -1,16 +1,21 @@
 from playground import Tic_Tac_Toe as TTT
-from functions import show_playground
-from functions import player_1, player_2, list_of_coordinates
+from winner import Winner
+from functions import player_turn, show_playground
+from functions import player_turn, list_of_coordinates
 
 
+player_one_symbol = "X"
+player_two_symbol = "O"
 
 
 print("\n\nWelcome to Tic Tac Toe match!\n")
 size_x = int(input("Please set size of axis x (max. 25): "))
 size_y = int(input("Please set size of axis x (max. 99): "))
+symbol_in_row_to_win = int(input("Please set how many symbols in row to win (3-5): "))
 
-playground = TTT(size_x, size_y)
+playground = TTT(size_x, size_y)                    # make an instance of Tic_Tac_Toe class
 field = playground.game_field()
+
 
 print("\nPlease enter coordinates like 'A3'.\n"
     "Enter 'q' for exit the game.\n")
@@ -23,14 +28,28 @@ while True:
     if player_1_coordinates == 'q' or player_1_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
-    player_1(field, player_1_coordinates)
-        
+    player_turn(field, player_1_coordinates, player_one_symbol)    #store coordinates for horizontal_line method
+
+    # check horizontal line
+    winner = Winner(symbol_in_row_to_win, field)
+    check_horizontal_line = winner.horizontal_line(player_1_coordinates[1], player_one_symbol)
+    if check_horizontal_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
 
 
     player_2_coordinates = list_of_coordinates((input("\nPlayer two turn: \n")).upper())
-    if player_2_coordinates == 'q' or player_2_coordinates == "Q":              # can't use .lower() beacause I make variable as list
+    if player_2_coordinates == 'q' or player_2_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
-    player_2(field, player_2_coordinates)
+    player_turn(field, player_2_coordinates, player_two_symbol)
+
+    # check horizontal line
+    winner = Winner(symbol_in_row_to_win, field)
+    check_horizontal_line = winner.horizontal_line(player_2_coordinates[1], player_two_symbol)
+    if check_horizontal_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
 
 
