@@ -24,30 +24,69 @@ show_playground(field)
 
 while True:
 
+    # player 1 turn
     player_1_coordinates = list_of_coordinates((input("\nPlayer one turn: \n")).upper())
     if player_1_coordinates == 'q' or player_1_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
     player_turn(field, player_1_coordinates, player_one_symbol)    #store coordinates for horizontal_line method
 
-    # check horizontal line
     winner = Winner(symbol_in_row_to_win, field)
+
+    # check horizontal line
     check_horizontal_line = winner.horizontal_line(player_1_coordinates[1], player_one_symbol)
     if check_horizontal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
 
+    # check vertical line
+    check_vertical_line = winner.vertical_line(player_1_coordinates[0], player_one_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
 
+    # check diagonal left to right
+    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_1_coordinates[1], player_1_coordinates[0], player_one_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
+    # check diagonal right to left
+    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_1_coordinates[1], player_1_coordinates[0], player_one_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
+    # player 2 turn
     player_2_coordinates = list_of_coordinates((input("\nPlayer two turn: \n")).upper())
     if player_2_coordinates == 'q' or player_2_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
     player_turn(field, player_2_coordinates, player_two_symbol)
 
-    # check horizontal line
     winner = Winner(symbol_in_row_to_win, field)
+
+    # check horizontal line
     check_horizontal_line = winner.horizontal_line(player_2_coordinates[1], player_two_symbol)
     if check_horizontal_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
+    # check vertical line
+    check_vertical_line = winner.vertical_line(player_2_coordinates[0], player_two_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
+    # check diagonal left to right
+    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_2_coordinates[1], player_2_coordinates[0], player_two_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
+        print("Player one is the winner. Congratulation!")
+        break
+
+    # check diagonal right to left
+    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_2_coordinates[1], player_2_coordinates[0], player_two_symbol)
+    if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
 
