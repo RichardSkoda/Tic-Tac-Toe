@@ -48,7 +48,7 @@ class Winner():
         for place in self.field: 
             count = 0
             try:        # I looking for out of index
-                coordinates = (ord(column_index) - 64 + count), [line_index + count]
+                coordinates = [(ord(column_index) - 64 + count), (line_index + count)]
                 diagonal_left_to_right.append(coordinates)
                 count += 1
             except:
@@ -58,7 +58,7 @@ class Winner():
         for place in self.field: 
             count = 0
             try:
-                coordinates = (ord(column_index) - 64 - 1 - count), [line_index + count]  # -1 because I add original coordinates to list already
+                coordinates = [(ord(column_index) - 64 - 1 - count), (line_index + count)]  # -1 because I add original coordinates to list already
                 diagonal_left_to_right.append(coordinates)
                 count += 1
             except:
@@ -90,7 +90,7 @@ class Winner():
             count = 0
             try:
                 # puvodni - coordinates = [self.field[ord(column_index) - 64 - count], [line_index + count]]
-                coordinates = (ord(column_index) - 64 - count), [line_index + count]
+                coordinates = [(ord(column_index) - 64 - count), (line_index + count)]
                 diagonal_right_to_left.append(coordinates)
                 count += 1
             except:
@@ -100,7 +100,7 @@ class Winner():
         for place in self.field: 
             count = 0
             try:
-                coordinates = (ord(column_index) - 64 - 1 + count), [line_index + count]  # -1 because I add original coordinates to list already
+                coordinates = [(ord(column_index) - 64 - 1 + count), (line_index + count)]  # -1 because I add original coordinates to list already
                 diagonal_right_to_left.append(coordinates)
                 count += 1
             except:
