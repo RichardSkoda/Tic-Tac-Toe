@@ -25,10 +25,11 @@ show_playground(field)
 while True:
 
     # player 1 turn
-    player_1_coordinates = list_of_coordinates((input("\nPlayer one turn: \n")).upper())
-    if player_1_coordinates == 'q' or player_1_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
+    player_1_coordinates = (input("\nPlayer one turn: \n")).upper()
+    if player_1_coordinates[0] == "Q":               # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
+    player_1_coordinates = list_of_coordinates(player_1_coordinates)
     player_turn(field, player_1_coordinates, player_one_symbol)    #store coordinates for horizontal_line method
 
     winner = Winner(symbol_in_row_to_win, field)
@@ -37,31 +38,46 @@ while True:
     check_horizontal_line = winner.horizontal_line(player_1_coordinates[1], player_one_symbol)
     if check_horizontal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
+        print('a')
         break
 
     # check vertical line
     check_vertical_line = winner.vertical_line(player_1_coordinates[0], player_one_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
+        print('a')
         break
 
     # check diagonal left to right
-    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
-    if check_vertical_line == symbol_in_row_to_win:
+    check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
+    if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
+        print('1')
         break
+
 
     # check diagonal right to left
-    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_one_symbol)
-    if check_vertical_line == symbol_in_row_to_win:
+    check_diagonal_line = winner.diagonal_right_top_to_left_bottom(player_one_symbol)
+    if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
+        print(2)
         break
 
+    # check draw player one
+    check_draw_field = winner.fill_remain_fleld(player_one_symbol)
+    check_draw = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
+    if symbol_in_row_to_win == check_draw:
+        continue
+    else:
+        check_draw_player_one = False
+
+
     # player 2 turn
-    player_2_coordinates = list_of_coordinates((input("\nPlayer two turn: \n")).upper())
-    if player_2_coordinates == 'q' or player_2_coordinates == "Q":               # ???how to use only one IF to break main and secondary loop together???
+    player_2_coordinates = (input("\nPlayer two turn: \n")).upper()
+    if player_2_coordinates[0] == "Q":              # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
+    player_2_coordinates = list_of_coordinates(player_2_coordinates)
     player_turn(field, player_2_coordinates, player_two_symbol)
 
     winner = Winner(symbol_in_row_to_win, field)
@@ -69,23 +85,39 @@ while True:
     # check horizontal line
     check_horizontal_line = winner.horizontal_line(player_2_coordinates[1], player_two_symbol)
     if check_horizontal_line == symbol_in_row_to_win:
-        print("Player one is the winner. Congratulation!")
+        print("Player two is the winner. Congratulation!")
         break
 
     # check vertical line
     check_vertical_line = winner.vertical_line(player_2_coordinates[0], player_two_symbol)
     if check_vertical_line == symbol_in_row_to_win:
-        print("Player one is the winner. Congratulation!")
+        print("Player two is the winner. Congratulation!")
         break
 
     # check diagonal left to right
-    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
-    if check_vertical_line == symbol_in_row_to_win:
-        print("Player one is the winner. Congratulation!")
+    check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
+    if check_diagonal_line == symbol_in_row_to_win:
+        print("Player two is the winner. Congratulation!")
+        print(3)
         break
 
     # check diagonal right to left
-    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_two_symbol)
-    if check_vertical_line == symbol_in_row_to_win:
-        print("Player one is the winner. Congratulation!")
+    check_diagonal_line = winner.diagonal_right_top_to_left_bottom(player_two_symbol)
+    if check_diagonal_line == symbol_in_row_to_win:
+        print("Player two is the winner. Congratulation!")
+        print(4)
         break
+
+    # check draw player two
+    check_draw_field = winner.fill_remain_fleld(player_two_symbol)
+    check_draw = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
+    if symbol_in_row_to_win == check_draw:
+        continue
+    else:
+       check_draw_player_two = False
+
+    # check draw
+    if winner.draw_check(check_draw_player_one, check_draw_player_two) == True:
+        print("It is draw!!")
+        break
+

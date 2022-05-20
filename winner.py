@@ -53,13 +53,13 @@ class Winner():
         # diagonal lef to right check
         for diagonal in diagonals_left_to_right:
             for place in diagonal:
+                symbol_in_row = 0
                 if symbol_in_row == self.row_to_win:
                     break
                 if place == symbol:
                     symbol_in_row += 1
                 elif place != symbol:
                     symbol_in_row = 0
-
         return symbol_in_row
 
     def diagonal_right_top_to_left_bottom(self, symbol):
@@ -70,10 +70,11 @@ class Winner():
         # from stack overflow- find how it is working and do the same for another diagonals
         matrix = np.array(matrix)
         a = matrix.shape[0]
-        diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
+        diagonals_right_to_left = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
 
         # diagonal lef to right check
-        for diagonal in diagonals_left_to_right:
+        for diagonal in diagonals_right_to_left:
+            symbol_in_row = 0
             for place in diagonal:
                 if symbol_in_row == self.row_to_win:
                     break
@@ -81,7 +82,6 @@ class Winner():
                     symbol_in_row += 1
                 elif place != symbol:
                     symbol_in_row = 0
-
         return symbol_in_row
 
     def _matrix_only_play_fields(self):
@@ -93,3 +93,21 @@ class Winner():
             matrix.append(line)
 
         return matrix
+
+
+    def draw_check(self, player_one_draw, player_two_draw):
+        """Fill free places by given symbol."""
+        if player_one_draw == False and player_two_draw == False:
+            return False
+        else:
+            return True
+
+
+    def fill_remain_fleld(self, symbol):
+        """Fill free places by given symbol."""
+        for line in self.field:
+            for place in line:
+                if place == '_':
+                    place = symbol
+
+        return self.field
