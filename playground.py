@@ -18,7 +18,7 @@ class Tic_Tac_Toe:
     def _line_1(self):
         """Define the first line of playground.""" 
         line_1 = ['   ', ]
-        for place in range(self.axis_x + 1):
+        for place in range(self.axis_x):
             line_1.append(chr(place + 65))                                  # convert x coordinate to letter by ascii
         line_1.append("\n")
         self.playground.append(line_1)
@@ -26,14 +26,14 @@ class Tic_Tac_Toe:
     def _rest_lines(self):
         """Make all line of playground except the first one."""
         count = 0
-        while count <= self.axis_y:
+        while count <= self.axis_y - 1:
             rest_lines = []
             if count < 10:
                 one_char_y_coordinate = (f'{count} ')
                 rest_lines.append(one_char_y_coordinate)                     # first number of axis y of playground (0)
             else:
                 rest_lines.append(count)                            
-            for position in range(self.axis_x + 1):
+            for position in range(self.axis_x):
                 rest_lines.append("_")                            # add playground field                                
             rest_lines.append("\n")                           # add new line as final symbol in list of fields
             self.playground.append(rest_lines)                    # add whole line to playground

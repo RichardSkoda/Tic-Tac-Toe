@@ -9,7 +9,7 @@ player_two_symbol = "O"
 
 
 print("\n\nWelcome to Tic Tac Toe match!\n")
-size_x = int(input("Please set size of axis x (max. 25): "))
+size_x = int(input("Please set size of axis x (max. 26): "))
 size_y = int(input("Please set size of axis x (max. 99): "))
 symbol_in_row_to_win = int(input("Please set how many symbols in row to win (3-5): "))
 
@@ -46,13 +46,13 @@ while True:
         break
 
     # check diagonal left to right
-    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_1_coordinates[1], player_1_coordinates[0], player_one_symbol)
+    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
 
     # check diagonal right to left
-    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_1_coordinates[1], player_1_coordinates[0], player_one_symbol)
+    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_one_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
@@ -79,16 +79,13 @@ while True:
         break
 
     # check diagonal left to right
-    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_2_coordinates[1], player_2_coordinates[0], player_two_symbol)
+    check_vertical_line = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
 
     # check diagonal right to left
-    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_2_coordinates[1], player_2_coordinates[0], player_two_symbol)
+    check_vertical_line = winner.diagonal_right_top_to_left_bottom(player_two_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
-
-
-

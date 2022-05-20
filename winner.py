@@ -1,13 +1,15 @@
 from playground import Tic_Tac_Toe as TTT
+import numpy as np
 
 class Winner():
     """Class chose who is the winner of Tic Tac Toe."""
 
     def __init__(self, row_to_win, field):
         """Initialize the game aspects.."""
-        self.playground = TTT()
+        self.playground = TTT(self)
         self.field = field
         self.row_to_win = row_to_win
+
 
     def horizontal_line(self, line_index, symbol):
         """Check particular horizontal line."""
@@ -37,115 +39,57 @@ class Winner():
 
         return symbol_in_row
 
-    def diagonal_left_top_to_right_bottom(self, line_index, column_index, symbol):
+    def diagonal_left_top_to_right_bottom(self, symbol):
         """Check particular diagonal lines."""
         symbol_in_row = 0
         
-        # diagonal left to right making a list of coordinates
-        diagonal_left_to_right = []
-
-        # diagonal from one place to right down
-        for place in self.field: 
-            count = 0
-            try:        # I looking for out of index
-                coordinates = [(ord(column_index) - 64 + count), (line_index + count)]
-                diagonal_left_to_right.append(coordinates)
-                count += 1
-            except:
-                continue
-        
-        # diagonal from one place to left up
-        for place in self.field: 
-            count = 0
-            try:
-                coordinates = [(ord(column_index) - 64 - 1 - count), (line_index + count)]  # -1 because I add original coordinates to list already
-                diagonal_left_to_right.append(coordinates)
-                count += 1
-            except:
-                continue
-        print(diagonal_left_to_right)      # !!! tady mam ulozeny list z tuples !!!!
+        matrix = self._matrix_only_play_fields()
+        # from stack overflow- find how it is working and do the same for another diagonals
+        matrix = np.array(matrix)
+        matrix = np.flipud(matrix)  # when I don't do flipud it should be for right to left diagonals. I hope
+        a = matrix.shape[0]
+        diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
 
         # diagonal lef to right check
-        for coordinates in sorted(diagonal_left_to_right):
-            print(coordinates)      # !!!! toto mam ulozen tuple  !!!!!
-            if symbol_in_row == self.row_to_win:
-                break
-            if self.field[coordinates[1]][coordinates[0]] == symbol:
-                symbol_in_row += 1
-            elif self.field[coordinates[1]][coordinates[0]] != symbol:
-                symbol_in_row = 0
+        for diagonal in diagonals_left_to_right:
+            for place in diagonal:
+                if symbol_in_row == self.row_to_win:
+                    break
+                if place == symbol:
+                    symbol_in_row += 1
+                elif place != symbol:
+                    symbol_in_row = 0
 
         return symbol_in_row
 
-
-    def diagonal_right_top_to_left_bottom(self, line_index, column_index, symbol):
+    def diagonal_right_top_to_left_bottom(self, symbol):
         """Check particular diagonal lines."""
-        symbol_in_row = 0            
-
-        # diagonal right to left
-
-        diagonal_right_to_left = []
-        # diagonal from one place to left down
-        for place in self.field: 
-            count = 0
-            try:
-                # puvodni - coordinates = [self.field[ord(column_index) - 64 - count], [line_index + count]]
-                coordinates = [(ord(column_index) - 64 - count), (line_index + count)]
-                diagonal_right_to_left.append(coordinates)
-                count += 1
-            except:
-                continue
+        symbol_in_row = 0
         
-        # diagonal from one place to right up
-        for place in self.field: 
-            count = 0
-            try:
-                coordinates = [(ord(column_index) - 64 - 1 + count), (line_index + count)]  # -1 because I add original coordinates to list already
-                diagonal_right_to_left.append(coordinates)
-                count += 1
-            except:
-                continue
+        matrix = self._matrix_only_play_fields()
+        # from stack overflow- find how it is working and do the same for another diagonals
+        matrix = np.array(matrix)
+        a = matrix.shape[0]
+        diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
 
-        # diagonal right to left check
-        for coordinates in sorted(diagonal_right_to_left):
-            if symbol_in_row == self.row_to_win:
-                break
-            if self.field[coordinates[1]][coordinates[0]] == symbol:
-                symbol_in_row += 1
-            elif self.field[coordinates[1]][coordinates[0]] != symbol:
-                symbol_in_row = 0
+        # diagonal lef to right check
+        for diagonal in diagonals_left_to_right:
+            for place in diagonal:
+                if symbol_in_row == self.row_to_win:
+                    break
+                if place == symbol:
+                    symbol_in_row += 1
+                elif place != symbol:
+                    symbol_in_row = 0
 
         return symbol_in_row
-            
 
+    def _matrix_only_play_fields(self):
+        """Make playground only with fields for player's symbols.."""
+        field_without_axisx_coordinates = self.field[1:]
+        matrix = []
+        for line in field_without_axisx_coordinates:
+            line = line[1:]
+            matrix.append(line)
 
-
-
-'''
-
-            # how to check diagonal
-            # diagonal from one place to left down
-            try:
-                if self.field[ord(column_index) - 64 - count][line_index + count] == symbol:
-                    symbol_in_row += 1
-                elif self.field[ord(column_index) - 64 - count][line_index + count] != symbol:
-                    symbol_in_row = 0
-                count += 1
-            except:
-                continue
-            
-            # diagonal from one place to right up
-            try:
-                if self.field[ord(column_index) - 64 + count][line_index - count] == symbol:
-                    symbol_in_row += 1
-                elif self.field[ord(column_index) - 64 - count][line_index - count] != symbol:
-                    symbol_in_row = 0
-                count += 1
-            except:
-                continue
-
-'''
-
-
-
-    
+        return matrix
