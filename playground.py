@@ -13,7 +13,6 @@ class Tic_Tac_Toe:
         self._rest_lines()
         return self.playground
         #self._print_playground()
-        
 
     def _line_1(self):
         """Define the first line of playground.""" 

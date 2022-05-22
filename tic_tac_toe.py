@@ -38,21 +38,18 @@ while True:
     check_horizontal_line = winner.horizontal_line(player_1_coordinates[1], player_one_symbol)
     if check_horizontal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
-        print('a')
         break
 
     # check vertical line
     check_vertical_line = winner.vertical_line(player_1_coordinates[0], player_one_symbol)
     if check_vertical_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
-        print('a')
         break
 
     # check diagonal left to right
     check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
-        print('1')
         break
 
 
@@ -60,12 +57,12 @@ while True:
     check_diagonal_line = winner.diagonal_right_top_to_left_bottom(player_one_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
-        print(2)
         break
 
     # check draw player one
     check_draw_field = winner.fill_remain_fleld(player_one_symbol)
-    check_draw = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
+    check_draw = Winner(symbol_in_row_to_win, check_draw_field)
+    check_draw = check_draw.diagonal_left_top_to_right_bottom(player_one_symbol)
     if symbol_in_row_to_win == check_draw:
         continue
     else:
@@ -98,20 +95,19 @@ while True:
     check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player two is the winner. Congratulation!")
-        print(3)
         break
 
     # check diagonal right to left
     check_diagonal_line = winner.diagonal_right_top_to_left_bottom(player_two_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player two is the winner. Congratulation!")
-        print(4)
         break
 
     # check draw player two
-    check_draw_field = winner.fill_remain_fleld(player_two_symbol)
-    check_draw = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
-    if symbol_in_row_to_win == check_draw:
+    check_draw_field = winner.fill_remain_fleld(player_two_symbol)  # hodit to pod vytvoreni Winner instance do winner promenne
+    check_draw = Winner(symbol_in_row_to_win, check_draw_field)     # hodit to pod vytvoreni Winner instance do winner promenne
+    check_draw = check_draw.diagonal_left_top_to_right_bottom(player_one_symbol) # pak do kazdeho checku dat i check na remizu
+    if symbol_in_row_to_win == check_draw:      # vytvorit list True a False. Kdyz pak budou vsechny False, bude remiza za jednoho hrace
         continue
     else:
        check_draw_player_two = False

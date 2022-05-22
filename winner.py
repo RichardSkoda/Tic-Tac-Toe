@@ -10,7 +10,6 @@ class Winner():
         self.field = field
         self.row_to_win = row_to_win
 
-
     def horizontal_line(self, line_index, symbol):
         """Check particular horizontal line."""
         symbol_in_row = 0
@@ -23,7 +22,6 @@ class Winner():
                 symbol_in_row = 0
         
         return symbol_in_row
-
 
     def vertical_line(self, column_index, symbol):
         """Check particular vertical line."""
@@ -46,7 +44,7 @@ class Winner():
         matrix = self._matrix_only_play_fields()
         # from stack overflow- find how it is working and do the same for another diagonals
         matrix = np.array(matrix)
-        matrix = np.flipud(matrix)  # when I don't do flipud it should be for right to left diagonals. I hope
+        matrix = np.flipud(matrix)  # flipud make matrix in mirror shape, so diagonals are oposit 
         a = matrix.shape[0]
         diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
 
@@ -94,7 +92,6 @@ class Winner():
 
         return matrix
 
-
     def draw_check(self, player_one_draw, player_two_draw):
         """Fill free places by given symbol."""
         if player_one_draw == False and player_two_draw == False:
@@ -102,12 +99,11 @@ class Winner():
         else:
             return True
 
-
     def fill_remain_fleld(self, symbol):
         """Fill free places by given symbol."""
-        for line in self.field:
-            for place in line:
-                if place == '_':
-                    place = symbol
+        matrix = self._matrix_only_play_fields()
+        matrix = np.array(matrix)
+        matrix = np.char.replace(matrix, '_', symbol, count=None)
+        print(matrix)
 
-        return self.field
+        return matrix
