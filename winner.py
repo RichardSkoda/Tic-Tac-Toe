@@ -10,7 +10,7 @@ class Winner():
         self.field = field
         self.row_to_win = row_to_win
 
-    def horizontal_line(self, line_index, symbol):
+    def horizontal_line_one_line(self, line_index, symbol):
         """Check particular horizontal line."""
         symbol_in_row = 0
         for place in self.field[line_index + 1]:            # +1 beacause first line is line with horizontal coordinates (A B C ...)
@@ -23,7 +23,13 @@ class Winner():
         
         return symbol_in_row
 
-    def vertical_line(self, column_index, symbol):
+    def horizontal_lines(self, symbol):         # have to make a list of True/Flase each item is one line and retrum thhis list to check
+        """Check all horizontal lines."""
+        for horizontal in self.fied:
+
+
+
+    def vertical_line_one_line(self, column_index, symbol):
         """Check particular vertical line."""
         symbol_in_row = 0
         
@@ -35,6 +41,19 @@ class Winner():
             elif line[ord(column_index) - 64] != symbol:
                 symbol_in_row = 0
 
+        return symbol_in_row
+
+    def vertical_lines(self, symbol):
+        """Check all horizontal line."""
+        for vertical in self.field:
+            for place in vertical:
+                symbol_in_row = 0
+                if symbol_in_row != self.row_to_win:
+                    break
+                if place == symbol:
+                    symbol_in_row += 1
+                elif place != symbol:
+                    symbol_in_row = 0
         return symbol_in_row
 
     def diagonal_left_top_to_right_bottom(self, symbol):
@@ -94,10 +113,10 @@ class Winner():
 
     def draw_check(self, player_one_draw, player_two_draw):
         """Fill free places by given symbol."""
-        if player_one_draw == False and player_two_draw == False:
-            return False
-        else:
+        if all(player_one_draw) == True and all(player_two_draw) == True:
             return True
+        else:
+            return False
 
     def fill_remain_fleld(self, symbol):
         """Fill free places by given symbol."""
