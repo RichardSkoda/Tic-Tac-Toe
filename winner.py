@@ -25,14 +25,24 @@ class Winner():
 
     def horizontal_lines(self, symbol):         # have to make a list of True/Flase each item is one line and retrum thhis list to check
         """Check all horizontal lines."""
-        for horizontal in self.fied:
-
-
+        symbol_in_row = 0
+        for horizontal in self.field:
+            if symbol_in_row == self.row_to_win:
+                    break
+            symbol_in_row = 0
+            for place in horizontal:
+                if place == symbol:
+                    symbol_in_row += 1
+                elif place != symbol:
+                    symbol_in_row = 0
+                if symbol_in_row == self.row_to_win:
+                    break
+    
+        return symbol_in_row
 
     def vertical_line_one_line(self, column_index, symbol):
         """Check particular vertical line."""
         symbol_in_row = 0
-        
         for line in self.field:
             if symbol_in_row == self.row_to_win:
                 break
@@ -45,20 +55,23 @@ class Winner():
 
     def vertical_lines(self, symbol):
         """Check all horizontal line."""
+        symbol_in_row = 0
         for vertical in self.field:
-            for place in vertical:
-                symbol_in_row = 0
-                if symbol_in_row != self.row_to_win:
+            if symbol_in_row == self.row_to_win:
                     break
+            symbol_in_row = 0
+            for place in vertical:
                 if place == symbol:
                     symbol_in_row += 1
                 elif place != symbol:
                     symbol_in_row = 0
+                if symbol_in_row == self.row_to_win:
+                    break
+    
         return symbol_in_row
 
     def diagonal_left_top_to_right_bottom(self, symbol):
         """Check particular diagonal lines."""
-        symbol_in_row = 0
         
         matrix = self._matrix_only_play_fields()
         # from stack overflow- find how it is working and do the same for another diagonals
@@ -66,39 +79,48 @@ class Winner():
         matrix = np.flipud(matrix)  # flipud make matrix in mirror shape, so diagonals are oposit 
         a = matrix.shape[0]
         diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
+        print(diagonals_left_to_right)
 
         # diagonal lef to right check
+        symbol_in_row = 0
         for diagonal in diagonals_left_to_right:
-            for place in diagonal:
-                symbol_in_row = 0
-                if symbol_in_row == self.row_to_win:
+            if symbol_in_row == self.row_to_win:
                     break
+            symbol_in_row = 0
+            for place in diagonal:
                 if place == symbol:
                     symbol_in_row += 1
                 elif place != symbol:
                     symbol_in_row = 0
+                if symbol_in_row == self.row_to_win:
+                    break
+    
         return symbol_in_row
 
     def diagonal_right_top_to_left_bottom(self, symbol):
         """Check particular diagonal lines."""
-        symbol_in_row = 0
         
         matrix = self._matrix_only_play_fields()
         # from stack overflow- find how it is working and do the same for another diagonals
         matrix = np.array(matrix)
         a = matrix.shape[0]
         diagonals_right_to_left = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
+        print(diagonals_right_to_left)
 
         # diagonal lef to right check
+        symbol_in_row = 0
         for diagonal in diagonals_right_to_left:
+            if symbol_in_row == self.row_to_win:
+                    break
             symbol_in_row = 0
             for place in diagonal:
-                if symbol_in_row == self.row_to_win:
-                    break
                 if place == symbol:
                     symbol_in_row += 1
                 elif place != symbol:
                     symbol_in_row = 0
+                if symbol_in_row == self.row_to_win:
+                    break
+    
         return symbol_in_row
 
     def _matrix_only_play_fields(self):
@@ -123,6 +145,5 @@ class Winner():
         matrix = self._matrix_only_play_fields()
         matrix = np.array(matrix)
         matrix = np.char.replace(matrix, '_', symbol, count=None)
-        print(matrix)
 
         return matrix

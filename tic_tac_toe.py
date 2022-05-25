@@ -33,7 +33,7 @@ while True:
     player_turn(field, player_1_coordinates, player_one_symbol)    #store coordinates for horizontal_line method
 
     winner = Winner(symbol_in_row_to_win, field)
-    check_draw_field = winner.fill_remain_fleld(player_two_symbol)
+    check_draw_field = winner.fill_remain_fleld(player_one_symbol)
     check_draw = Winner(symbol_in_row_to_win, check_draw_field)
     check_draw_player_one = []      # make a list of draw check for each line check
 
@@ -44,10 +44,10 @@ while True:
         break
         # check draw player two
     check_draw_horizontal = check_draw.horizontal_lines(player_one_symbol)
-    if symbol_in_row_to_win == check_draw_horizontal:
-        check_draw_player_one.append(False)
+    if check_draw_horizontal == 0:
+        check_draw_player_one.append(True)
     else:
-       check_draw_player_one.append(True)
+        check_draw_player_one.append(False)
 
     # check vertical line
     check_vertical_line = winner.vertical_line_one_line(player_1_coordinates[0], player_one_symbol)
@@ -56,17 +56,22 @@ while True:
         break
         # check draw player two
     check_draw_vertical = check_draw.vertical_lines(player_one_symbol)
-    if symbol_in_row_to_win == check_draw_vertical:
-        check_draw_player_one.append(False)
+    if check_draw_vertical == 0:
+        check_draw_player_one.append(True)
     else:
-       check_draw_player_one.append(True)
+        check_draw_player_one.append(False)
 
     # check diagonal left to right
     check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_one_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
-    
+        # check draw player two (try do this for each check)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    check_draw_diagonal_left = check_draw.diagonal_left_top_to_right_bottom(player_one_symbol) # pak do kazdeho checku dat i check na remizu
+    if check_draw_diagonal_left == 0:      # vytvorit list True a False. Kdyz pak budou vsechny False, bude remiza za jednoho hrace
+        check_draw_player_one.append(True)
+    else:
+        check_draw_player_one.append(False)
 
 
     # check diagonal right to left
@@ -74,8 +79,13 @@ while True:
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player one is the winner. Congratulation!")
         break
+        # check draw player two (try do this for each check)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    check_draw_diagonal_right = check_draw.diagonal_right_top_to_left_bottom(player_one_symbol) # pak do kazdeho checku dat i check na remizu
+    if check_draw_diagonal_right == 0:      # vytvorit list True a False. Kdyz pak budou vsechny False, bude remiza za jednoho hrace
+        check_draw_player_one.append(True)
+    else:
+        check_draw_player_one.append(False)
     
-
 
     # player 2 turn
     player_2_coordinates = (input("\nPlayer two turn: \n")).upper()
@@ -97,10 +107,10 @@ while True:
         break
         # check draw player two
     check_draw_horizontal = check_draw.horizontal_lines(player_two_symbol)
-    if symbol_in_row_to_win == check_draw_horizontal:
-        check_draw_player_two.append(False)
+    if check_draw_horizontal == 0:
+        check_draw_player_two.append(True)
     else:
-       check_draw_player_two.append(True)       # return True if conditions for draw
+        check_draw_player_two.append(False)       # return True if conditions for draw
 
     # check vertical line
     check_vertical_line = winner.vertical_line_one_line(player_2_coordinates[0], player_two_symbol)
@@ -109,25 +119,35 @@ while True:
         break
         # check draw player two
     check_draw_vertical = check_draw.vertical_lines(player_two_symbol)
-    if symbol_in_row_to_win == check_draw_vertical:
-        check_draw_player_two.append(False)
+    if check_draw_vertical == 0:
+        check_draw_player_two.append(True)
     else:
-       check_draw_player_two.append(True)
+        check_draw_player_two.append(False)
 
     # check diagonal left to right
     check_diagonal_line = winner.diagonal_left_top_to_right_bottom(player_two_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player two is the winner. Congratulation!")
         break
-
-    # diagonal draw checks are in test.py
+        # check draw player two
+    check_draw_diagonal_left = check_draw.diagonal_left_top_to_right_bottom(player_two_symbol)
+    if check_draw_diagonal_left == 0:
+        check_draw_player_two.append(True)
+    else:
+        check_draw_player_two.append(False)
            
-
     # check diagonal right to left
     check_diagonal_line = winner.diagonal_right_top_to_left_bottom(player_two_symbol)
     if check_diagonal_line == symbol_in_row_to_win:
         print("Player two is the winner. Congratulation!")
         break
+        # check draw player two
+    check_draw_diagonal_right = check_draw.diagonal_right_top_to_left_bottom(player_two_symbol)
+    print(check_draw_diagonal_right)
+    if check_draw_diagonal_right == 0:
+        check_draw_player_two.append(True)
+    else:
+        check_draw_player_two.append(False)
 
             
 
