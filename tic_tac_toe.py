@@ -7,12 +7,13 @@ from functions import player_turn, list_of_coordinates
 player_one_symbol = "X"
 player_two_symbol = "O"
 
-
+# set playground parameters
 print("\n\nWelcome to Tic Tac Toe match!\n")
 size_x = int(input("Please set size of axis x (max. 26): "))
-size_y = int(input("Please set size of axis x (max. 99): "))
+size_y = int(input("Please set size of axis y (max. 99): "))
 symbol_in_row_to_win = int(input("Please set how many symbols in row to win (3-5): "))
 
+# make a playground
 playground = TTT(size_x, size_y)                    # make an instance of Tic_Tac_Toe class
 field = playground.game_field()
 

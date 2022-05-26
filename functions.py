@@ -5,7 +5,6 @@ def show_playground(field=[]):
                 print(line, end=" ")                              # end=" " - print whole list to one line. Default ending is \n
 
 
-
 def player_turn(field, player_coordinates, player_symbol):
     """Place player one' symbol 'X' to playground."""
     while player_coordinates:
@@ -19,7 +18,6 @@ def player_turn(field, player_coordinates, player_symbol):
             else:
                 player_coordinates = list_of_coordinates((input(f"Coordinates {player_coordinates} are occupied. Please choose empty ones: ")).upper())
                 
-
         except:
             show_playground(field)
             print("\nCoordinates are out of playground. Look at playground carefully!")
@@ -40,5 +38,3 @@ def quit_game(player_coordinates):
     if player_coordinates == 'q' or player_coordinates == "Q":       # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         return                  # what ot return to break loop where this function is?????
-
-
