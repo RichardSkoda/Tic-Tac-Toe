@@ -1,3 +1,5 @@
+# shortened version of main code, but draw is not working yet
+
 from playground import Tic_Tac_Toe as TTT
 from winner import Winner
 from functions import player_turn, show_playground
