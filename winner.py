@@ -36,14 +36,16 @@ class Winner():
 
     def horizontal_lines(self, symbol):         
         """Check all horizontal lines."""
-        self._check_lines(symbol)
+        symbol_in_row = self._check_lines(symbol)
+        return(symbol_in_row)
 
     def vertical_lines(self, symbol):          
         """Check all horizontal line."""
         field = np.array(self.field)
         field_switched_axis = field.T       # .T attribute make lists from vertical lines in matrix
 
-        self._check_lines(symbol, field_switched_axis)
+        symbol_in_row = self._check_lines(symbol, field_switched_axis)
+        return(symbol_in_row)
 
     def diagonal_left_top_to_right_bottom(self, symbol):
         """Check particular diagonal lines."""
