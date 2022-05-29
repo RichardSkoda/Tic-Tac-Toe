@@ -15,7 +15,7 @@ class Tic_Tac_Toe:
         #self._print_playground()
 
     def _line_1(self):
-        """Define the first line of playground.""" 
+        """Define the first line of coordinates to playground.""" 
         line_1 = ['   ', ]
         for place in range(self.axis_x):
             line_1.append(chr(place + 65))                                  # convert x coordinate to letter by ascii
