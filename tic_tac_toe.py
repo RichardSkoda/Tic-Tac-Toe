@@ -1,3 +1,4 @@
+from logging import raiseExceptions
 from playground import Tic_Tac_Toe as TTT
 from winner import Winner
 from functions import player_turn, show_playground
@@ -10,11 +11,17 @@ parameters_done = False
 while parameters_done == False:
     try:
         size_x = int(input("Please set size of axis x (3-26): "))
-        int(size_x) in range(3, 26)
+        if size_x not in range(3, 27):
+            raise TypeError("Number is not in given range!")
+
         size_y = int(input("Please set size of axis y (3-99): "))
-        size_x in range(3, 99)
+        if size_y not in range(3, 100):
+            raise TypeError("Number is not in given range!")
+
         symbol_in_row_to_win = int(input("Please set how many symbols in row to win (3-5): "))
-        symbol_in_row_to_win in range(3, 5)
+        if symbol_in_row_to_win not in range(3, 6):
+            raise TypeError("Number is not in given range!")
+            
         parameters_done = True
     except:
         print("Please enter parameters in given range!")
@@ -46,11 +53,18 @@ while True:
         player = 'two'
         player_coordinates = (input(f"\nPlayer {player} turn: \n")).upper()
 
-    if player_coordinates[0] == "Q":               # ???how to use only one IF to break main and secondary loop together???
+    if player_coordinates == 'q' or player_coordinates == "Q":       # ???how to use only one IF to break main and secondary loop together???
         print("Good bye.")
         break
+    
+    coordinates = False
+    while coordinates == False:
+        try:
+            player_coordinates = list_of_coordinates(player_coordinates)
+            coordinates = True
+        except:
+            player_coordinates = (input("Please enter coordinates in right format!: \n")).upper()
 
-    player_coordinates = list_of_coordinates(player_coordinates)
     player_turn(field, player_coordinates, player_symbol)    #store coordinates for horizontal_line method
 
     winner = Winner(symbol_in_row_to_win, field)
