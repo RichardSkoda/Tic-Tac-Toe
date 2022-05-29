@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-=======
-# function code before shortening!!!!!!!!!!!! draw is not function
+ # function code before shortening!!!!!!!!!!!! draw is not function
 
 from playground import Tic_Tac_Toe as TTT
 from winner import Winner
@@ -160,5 +158,3 @@ while True:
     if winner.draw_check(check_draw_player_one, check_draw_player_two) == True:
         print("It is draw!!")
         break
-
->>>>>>> e710988d68d85d1f74fd10f67e04e9f7c4187630

@@ -1,5 +1,3 @@
-# shortened version of main code, but draw is not working yet
-
 from playground import Tic_Tac_Toe as TTT
 from winner import Winner
 from functions import player_turn, show_playground
@@ -105,6 +103,8 @@ while True:
         check_draw_player_two = check_draw_list
     
     # check draw
+    print(check_draw_player_one)
+    print(check_draw_player_two)
     if winner.draw_check(check_draw_player_one, check_draw_player_two) == True:
         print("It is draw!!")
         break

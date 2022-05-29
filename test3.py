@@ -36,15 +36,12 @@ class Winner():
 
     def horizontal_lines(self, symbol):         
         """Check all horizontal lines."""
-        field = self._matrix_only_play_fields()
-        field = np.array(field)
-        symbol_in_row = self._check_lines(symbol, field)
+        symbol_in_row = self._check_lines(symbol, self.field)
         return(symbol_in_row)
 
     def vertical_lines(self, symbol):          
         """Check all horizontal line."""
-        field = self._matrix_only_play_fields()
-        field = np.array(field)
+        field = np.array(self.field)
         field_switched_axis = field.T       # .T attribute make lists from vertical lines in matrix
         symbol_in_row = self._check_lines(symbol, field_switched_axis)
         return(symbol_in_row)
@@ -58,6 +55,7 @@ class Winner():
         matrix = np.flipud(matrix)  # flipud make matrix in mirror shape, so diagonals are oposit 
         a = matrix.shape[0]
         diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]    # make diagonals of the matrix
+
         # diagonal lef to right check
         symbol_in_row = self._check_lines(symbol, diagonals_left_to_right)
         return symbol_in_row
@@ -69,6 +67,7 @@ class Winner():
         matrix = np.array(matrix)
         a = matrix.shape[0]
         diagonals_right_to_left = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
+        
         # diagonal lef to right check
         symbol_in_row = self._check_lines(symbol, diagonals_right_to_left)
         return symbol_in_row
@@ -109,7 +108,8 @@ class Winner():
 
     def fill_remain_fleld(self, symbol):
         """Fill free places by given symbol."""
-        matrix = np.array(self.field)
+        matrix = self._matrix_only_play_fields()
+        matrix = np.array(matrix)
         matrix = np.char.replace(matrix, '_', symbol, count=None)
 
         return matrix
