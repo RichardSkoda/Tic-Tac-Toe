@@ -26,7 +26,7 @@ show_playground(field)
 game_turn = 1
 while True:
 
-    if game_turn % 2 != 0:
+    if game_turn % 2 != 0:              # every odd round is player one round
         player_symbol = "X"
         player = 'one'
         player_coordinates = (input(f"\nPlayer {player} turn: \n")).upper()
