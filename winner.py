@@ -8,7 +8,7 @@ class Winner():
         self.field = field
         self.row_to_win = row_to_win
 
-    def horizontal_line_one_line(self, line_index, symbol):
+    def horizontal_line_one_line(self, line_index, symbol):     # I can use only horizontal_lines method, but this one checks only one line
         """Check particular horizontal line."""
         symbol_in_row = 0
         for place in self.field[line_index + 1]:            # +1 beacause first line is line with horizontal coordinates (A B C ...)
@@ -21,8 +21,8 @@ class Winner():
         
         return symbol_in_row
 
-    def vertical_line_one_line(self, column_index, symbol):
-        """Check particular vertical line."""
+    def vertical_line_one_line(self, column_index, symbol):     # I can use only vertical_lines method, but this one checks only one line
+        """Check particular vertical line."""                   # I can reduce code more than 20 lines, but I decided to leave it in that way
         symbol_in_row = 0
         for line in self.field:
             if symbol_in_row == self.row_to_win:
@@ -36,27 +36,28 @@ class Winner():
 
     def horizontal_lines(self, symbol):         
         """Check all horizontal lines."""
-        symbol_in_row = self._check_lines(symbol)
-        return(symbol_in_row)
+        field = self._matrix_only_play_fields()
+        field = np.array(field)
+        symbol_in_row = self._check_lines(symbol, field)
+        return symbol_in_row
 
     def vertical_lines(self, symbol):          
         """Check all horizontal line."""
-        field = np.array(self.field)
+        field = self._matrix_only_play_fields()
+        field = np.array(field)
         field_switched_axis = field.T       # .T attribute make lists from vertical lines in matrix
-
         symbol_in_row = self._check_lines(symbol, field_switched_axis)
-        return(symbol_in_row)
+        return symbol_in_row
 
     def diagonal_left_top_to_right_bottom(self, symbol):
         """Check particular diagonal lines."""
         
         matrix = self._matrix_only_play_fields()
-        # from stack overflow- find how it is working exactly
+        # from stack overflow
         matrix = np.array(matrix)
         matrix = np.flipud(matrix)  # flipud make matrix in mirror shape, so diagonals are oposit 
         a = matrix.shape[0]
         diagonals_left_to_right = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]    # make diagonals of the matrix
-
         # diagonal lef to right check
         symbol_in_row = self._check_lines(symbol, diagonals_left_to_right)
         return symbol_in_row
@@ -68,7 +69,6 @@ class Winner():
         matrix = np.array(matrix)
         a = matrix.shape[0]
         diagonals_right_to_left = [np.diag(matrix, k=i).tolist() for i in range(-a+1,a)]
-
         # diagonal lef to right check
         symbol_in_row = self._check_lines(symbol, diagonals_right_to_left)
         return symbol_in_row
@@ -109,8 +109,7 @@ class Winner():
 
     def fill_remain_fleld(self, symbol):
         """Fill free places by given symbol."""
-        matrix = self._matrix_only_play_fields()
-        matrix = np.array(matrix)
+        matrix = np.array(self.field)
         matrix = np.char.replace(matrix, '_', symbol, count=None)
 
         return matrix
