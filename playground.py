@@ -28,7 +28,7 @@ class Tic_Tac_Toe:
         while count <= self.axis_y - 1:
             rest_lines = []
             if count < 10:
-                one_char_y_coordinate = (f'{count} ')
+                one_char_y_coordinate = (f'{count} ')                        # have to add space to 0-9 numbers
                 rest_lines.append(one_char_y_coordinate)                     # first number of axis y of playground (0)
             else:
                 rest_lines.append(count)                            
