@@ -93,10 +93,7 @@ class Winner():
     def _matrix_only_play_fields(self):
         """Make playground with only places for player's symbols."""
         field_without_axisx_coordinates = self.field[1:]
-        matrix = []
-        for line in field_without_axisx_coordinates:
-            line = line[1:]
-            matrix.append(line)
+        matrix = [line[1:] for line in field_without_axisx_coordinates]
 
         return matrix
 
